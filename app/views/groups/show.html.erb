@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @group.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @group.description %>
+</p>
+
+<p>
+  <b>Owner:</b>
+  <%= @owner.email%>
+</p>
+
+<p>
+  <b>Members:</b><br>
+  <% @group.users.each do |user|%>
+  Email: <%=user.email%><br>
+  <%end%>
+</p>
+
+<p>
+  <b>Membership requests:</b><br>
+  <% @group.membership_requests.each do |request|%>
+  <% if !request.accepted then %>
+  <%= User.find_by_id(request.user_id).email %>
+  <%= link_to 'Accept', accept_group_membership_request_path(@group, request), :method => :post%>
+  <%end%>
+  <%end%>
+</p>
+
+<%= link_to 'Edit', edit_group_path(@group) %> |
+<%= link_to 'Back', groups_path %>

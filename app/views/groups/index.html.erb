@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+<h1>Listing groups</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Owner</th>
+    <th></th>
+    <th></th>
+	<th></th>
+  </tr>
+
+<% @groups.each do |group| %>
+  <tr>
+    <td><%= group.name %></td>
+    <td><%= group.description %></td>
+    <td><%= User.find_by_id(group.owner_id).email %></td>
+
+    <td><%= link_to 'Show', group %></td>
+    <td><%= link_to 'Edit', edit_group_path(group) %></td>
+    <td><%= link_to 'Destroy', group, :confirm => 'Are you sure?', :method => :delete %></td>
+	<td><%= link_to 'Apply to group', group_membership_requests_path(group), :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Group', new_group_path %>
